@@ -38,13 +38,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="POST">
+                            <form action="http://localhost:3000/movies" method="post">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Movie's name</label>
-                                    <input type="text" class="form-control" id="inputName" aria-describedby="nameMovie" placeholder="Enter a name">
-                                    <small id="inputName" class="form-text text-muted">Just for testing</small>
+                                    <label for="title">Movie's name</label>
+                                    <input type="text" class="form-control" name="title" id="title" aria-describedby="nameMovie" placeholder="Enter a name">
+                                    <label for="genre">Movie's gender</label>
+                                    <input type="text" class="form-control" name="genre" id="genre" aria-describedby="genreMovie" placeholder="Enter a gender">
+                                    <label for="date">Movie's date</label>
+                                    <input type="text" class="form-control" name="date" id="date" aria-describedby="dateMovie" placeholder="Enter a date">
+                                    <label for="genre">Movie's synopsis</label>
+                                    <input type="text" class="form-control" name="synopsis" id="synopsis" aria-describedby="synopsisMovie" placeholder="Enter a description">
                                 </div>
-                                <input type="submit" value="OK" class="btn btn-primary"></input>
+                                <button type="submit" value="OK" class="btn btn-primary">OK</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -56,12 +61,12 @@
             <div class="list-group">
                 <!-- loop over blog movies and render them -->
                 <% movies.forEach((movie) => { %>
-                    <a href="/movie/<%= movie.id %>" class="list-group-item">
+                    <a href="/movies/<%= movie.id %>" class="list-group-item">
                         <h4 class="list-group-item-heading">
                             <%= movie.title %>
                         </h4>
                         <p class="list-group-item-text">
-                            <%= movie.author %>
+                            <%= movie.genre %>
                         </p>
                     </a>
                     <% }) %>

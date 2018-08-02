@@ -24,12 +24,12 @@
                 </h2>
                 <p>by
                     <a href="#">
-                        <%= movie.author %>
+                        <%= movie.genre %>
                     </a>
                 </p>
 
                 <p>
-                    <%= movie.body %>
+                    <%= movie.synopsis %>
                 </p>
                 <!-- Button trigger modal UPDATE NAME-->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
@@ -43,21 +43,22 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="updateModal">
-                                    Modify
+                                    Modifyd
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="" method="POST">
+                                <form action="/movies/<%=movie._id %>/update" method="post">
                                     <div class="form-group">
                                         <label for="inputNewName">Name</label>
-                                        <input type="text" class="form-control" id="inputNewName" aria-describedby="updateModal" placeholder="remplace it" value="<%=movie.title
+                                        <input type="text" class="form-control" id="inputNewName" name="title" aria-describedby="updateModal" placeholder="remplace it"
+                                            value="<%=movie.title
                                             %>">
                                         <small id="inputNewName" class="form-text text-muted">Just for testing</small>
                                     </div>
-                                    <input type="submit" value="OK" class="btn btn-primary"></input>
+                                    <button type="submit" value="OK" class="btn btn-primary">Modify</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -84,8 +85,7 @@
                                 <p>You will delete
                                     <%= movie.title %>
                                 </p>
-                                <button type="submit" class="deleteYes">Yes</button>
-                                <button type="submit" class="deleteNo">No</button>
+                                <a href="/movies/<%= movie._id %>/delete">Delete</a>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
