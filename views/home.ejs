@@ -1,0 +1,74 @@
+<!-- views/home.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>movies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .jumbotron {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('partials/navbar.ejs') %>
+            <!-- Button trigger modal ADD MOVIE -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMovie">
+                Add a movie </button>
+
+            <!-- Modal ADD MOVIE-->
+            <div class="modal fade" id="addMovie" tabindex="-1" role="dialog" aria-labelledby="addMovieLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addMovieLabel">Please insert your movie's name</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="POST">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Movie's name</label>
+                                    <input type="text" class="form-control" id="inputName" aria-describedby="nameMovie" placeholder="Enter a name">
+                                    <small id="inputName" class="form-text text-muted">Just for testing</small>
+                                </div>
+                                <input type="submit" value="OK" class="btn btn-primary"></input>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group">
+                <!-- loop over blog movies and render them -->
+                <% movies.forEach((movie) => { %>
+                    <a href="/movie/<%= movie.id %>" class="list-group-item">
+                        <h4 class="list-group-item-heading">
+                            <%= movie.title %>
+                        </h4>
+                        <p class="list-group-item-text">
+                            <%= movie.author %>
+                        </p>
+                    </a>
+                    <% }) %>
+            </div>
+            <%- include('partials/footer') %>
+    </div>
+
+</body>
+
+</html>

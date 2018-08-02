@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "author": "Khalid",
+    "title": "Le prince de Montmirail",
+    "body": "DVD 1"
+  },
+  {
+    "id": 2,
+    "author": "Tanguy",
+    "title": "El Gringo",
+    "body": "DVD 2"
+  },
+  {
+    "id": 3,
+    "author": "Kévin",
+    "title": "UX UI",
+    "body": "DVD 3"
+  },
+  {
+    "id": 4,
+    "author": "Nordik",
+    "title": "The cat",
+    "body": "DVD 4"
+  }
+]
