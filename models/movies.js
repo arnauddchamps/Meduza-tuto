@@ -34,7 +34,7 @@ const MovieSchema = new Schema({
   }
 });
 
-//virtual fields (not in db)
+//virtual fields (not in db) getters
 MovieSchema.set("toJSON", {
   getters: true,
   virtuals: true
@@ -53,6 +53,22 @@ MovieSchema.virtual("test").get(function() {
 MovieSchema.virtual("alphabet_v").set(function(title) {
   this.alphabet = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
 });
+
+//Methods
+MovieSchema.statics.findByGender = function(genre) {
+  const Movie = this;
+  return new Promise((revolve, reject) => {
+    Movie.find({
+      genre
+    })
+      .then(movies => {
+        revolve(movies);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+};
 
 //creating a model
 const Movie = mongoose.model("Movies", MovieSchema);

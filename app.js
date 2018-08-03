@@ -23,7 +23,21 @@ const { mongoose } = require("./db/mongoose");
  */
 app.get("/movies", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
-  Movie.find({}).then(movies => res.render("home", { movies }));
+  Movie.find({})
+    .then(movies => res.render("home", { movies }))
+    .catch(e => {
+      console.log("error", e);
+    });
+});
+
+app.get("/movies/categories", authentificate, (req, res) => {
+  Movie.findByGender("Horror")
+    .then(movies => {
+      res.render("home", { movies });
+    })
+    .catch(e => {
+      console.log(e);
+    });
 });
 
 /**
@@ -35,9 +49,11 @@ app.get("/movies", authentificate, (req, res) => {
  */
 app.get("/movies/:id", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
-  Movie.findOne({ _id: req.params.id }).then(movie =>
-    res.render("movie", { movie })
-  );
+  Movie.findOne({ _id: req.params.id })
+    .then(movie => res.render("movie", { movie }))
+    .catch(e => {
+      console.log("error", e);
+    });
 });
 
 /**
