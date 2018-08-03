@@ -4,7 +4,7 @@ const routes = require("./routes/server.js");
 const app = express();
 const _ = require("lodash");
 const { Movie } = require("./models/movies");
-
+const { authentificate } = require("./middleware/authentificate");
 // set the view engine to ejs
 app.set("view engine", "ejs");
 
@@ -21,7 +21,7 @@ const { mongoose } = require("./db/mongoose");
  * @param
  * @return db movies with mongoose
  */
-app.get("/movies", (req, res) => {
+app.get("/movies", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
   Movie.find({}).then(movies => res.render("home", { movies }));
 });
@@ -33,7 +33,7 @@ app.get("/movies", (req, res) => {
  * @param Int id
  * @return movie with right id
  */
-app.get("/movies/:id", (req, res) => {
+app.get("/movies/:id", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
   Movie.findOne({ _id: req.params.id }).then(movie =>
     res.render("movie", { movie })
@@ -47,7 +47,7 @@ app.get("/movies/:id", (req, res) => {
  * @param Text name (req.body)
  * @return all movies + new movie
  */
-app.post("/movies", (req, res) => {
+app.post("/movies", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
   console.log(req.body);
   const movie = new Movie({
@@ -74,7 +74,7 @@ app.post("/movies", (req, res) => {
  * @param Text title (req.body)
  * @return the movie modified
  */
-app.post("/movies/:id/update", (req, res) => {
+app.post("/movies/:id/update", authentificate, (req, res) => {
   console.log(req.body);
   const data = { title: req.body.title };
   Movie.findOneAndUpdate({ _id: req.params.id }, { $set: data }, { new: true })
@@ -92,7 +92,7 @@ app.post("/movies/:id/update", (req, res) => {
  * @param Int id
  * @return all movies without deleted movie
  */
-app.get("/movies/:id/delete", (req, res) => {
+app.get("/movies/:id/delete", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
 
   Movie.findOneAndDelete({ _id: req.params.id })
