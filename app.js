@@ -21,7 +21,7 @@ const { mongoose } = require("./db/mongoose");
  * @param
  * @return db movies with mongoose
  */
-app.get("/movies", authentificate, (req, res) => {
+app.get("/movies", (req, res) => {
   const { Movie } = require("./models/movies");
   Movie.find({}).then(movies => res.render("home", { movies }));
 });
