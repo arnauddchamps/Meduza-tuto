@@ -57,13 +57,26 @@ MovieSchema.virtual("alphabet_v").set(function(title) {
 //Methods
 MovieSchema.statics.findByGender = function(genre) {
   const Movie = this;
-  return new Promise((revolve, reject) => {
+  return new Promise((resolve, reject) => {
     Movie.find({
       genre
     })
       .then(movies => {
-        revolve(movies);
+        resolve(movies);
       })
+      .catch(e => {
+        reject(e);
+      });
+  });
+};
+
+MovieSchema.statics.countByGender = function(genre) {
+  const Movie = this;
+  return new Promise((resolve, reject) => {
+    Movie.find({
+      genre
+    })
+      .then(res => resolve(res))
       .catch(e => {
         reject(e);
       });

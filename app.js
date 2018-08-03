@@ -40,6 +40,19 @@ app.get("/movies/categories", authentificate, (req, res) => {
     });
 });
 
+app.get("/movies/categories/:genre/count", authentificate, (req, res) => {
+  Movie.countByGender(req.params.genre)
+    .then(count => {
+      console.log(count.length);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+});
+
+// mettre dans l url /action/Count => nombre de films du genre
+// function statique countByCategory
+
 /**
  * List only one movie by id
  * Function is only for user
@@ -66,19 +79,17 @@ app.get("/movies/:id", authentificate, (req, res) => {
 app.post("/movies", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
   console.log(req.body);
-  const movie = new Movie({
-    title: req.body.title,
-    genre: req.body.genre,
-    date: req.body.date,
-    synopsis: req.body.synopsis
-  });
+  const { body } = req;
+  const data = _.pick(body, ["title", "genre", "date", "synopsis"]);
+  const movie = new Movie(data);
   movie.alphabet_v = movie.title;
   movie
     .save()
     .then(movie => {
       console.log(movie, "New movie saved");
+      res.redirect("/movies");
     })
-    .then(res.redirect("/movies"))
+
     .catch(e => {
       console.log("error", e);
     });
@@ -93,7 +104,7 @@ app.post("/movies", authentificate, (req, res) => {
  */
 app.post("/movies/:id/update", authentificate, (req, res) => {
   console.log(req.body);
-  const data = { title: req.body.title };
+  const data = _.pick(body, ["title"]);
   Movie.findOneAndUpdate({ _id: req.params.id }, { $set: data }, { new: true })
 
     .then(movie => res.redirect("/movies/" + movie._id))
@@ -111,8 +122,9 @@ app.post("/movies/:id/update", authentificate, (req, res) => {
  */
 app.get("/movies/:id/delete", authentificate, (req, res) => {
   const { Movie } = require("./models/movies");
-
-  Movie.findOneAndDelete({ _id: req.params.id })
+  const { params } = req;
+  const { id } = params;
+  Movie.findOneAndDelete({ _id: id })
     .then(movie => {
       console.log("movie supprimée");
     })
