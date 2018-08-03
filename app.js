@@ -56,10 +56,11 @@ app.post("/movies", authentificate, (req, res) => {
     date: req.body.date,
     synopsis: req.body.synopsis
   });
+  movie.alphabet_v = movie.title;
   movie
     .save()
     .then(movie => {
-      console.log("New movie saved");
+      console.log(movie, "New movie saved");
     })
     .then(res.redirect("/movies"))
     .catch(e => {

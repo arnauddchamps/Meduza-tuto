@@ -27,10 +27,14 @@ const MovieSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  alphabet: {
+    type: String,
+    default: ""
   }
 });
 
-//virtual fields
+//virtual fields (not in db)
 MovieSchema.set("toJSON", {
   getters: true,
   virtuals: true
@@ -43,6 +47,11 @@ MovieSchema.set("toObject", {
 
 MovieSchema.virtual("test").get(function() {
   return "le film" + this.title + " est sorti le " + this.date;
+});
+
+//setters
+MovieSchema.virtual("alphabet_v").set(function(title) {
+  this.alphabet = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
 });
 
 //creating a model
