@@ -42,7 +42,7 @@ MovieSchema.set("toObject", {
 });
 
 MovieSchema.virtual("test").get(function() {
-  return "Hello";
+  return "le film" + this.title + " est sorti le " + this.date;
 });
 
 //creating a model
